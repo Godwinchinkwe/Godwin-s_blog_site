@@ -12,12 +12,12 @@ const CategoryPosts = () => {
     { posts.length > 0 ?
     <div className='container categoryPosts-container'>
     {
-          posts.map(({id, Image, authorId, category, title, des}, index)=> <PostItem key={index} Image={Image} category={category} authorId={authorId} title={title} des={des} />)
+          posts.map(({id, Image, authorId, category, title, des}, index)=> <PostItem key={id} Image={Image} category={category} authorId={authorId} title={title} des={des} />)
       }
-    </div> : <h2 className='error-center'> No postd founds </h2> }
+    </div> : <h2 className='center'> No Posts founds </h2> }
     
   </section>
-  // <div></div>
+  
   )
 }
 

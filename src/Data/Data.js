@@ -6,6 +6,12 @@ import blogImage5 from '../assets/5.jpg'
 import blogImage6 from '../assets/6.jpg'
 
 
+import AuthorImage1 from '../assets/1.jpg'
+import AuthorImag2 from '../assets/2.jpg'
+import AuthorImag3 from '../assets/3.jpg'
+import AuthorImag4 from '../assets/4.jpg'
+
+
 export const HeadPost =[
     {
         id: 1,
@@ -77,34 +83,31 @@ export const DummyPosts =[
 // Dummy-Author-Data...................
 
 
-// import AuthorImage1 from '../assets/a1.jpg'
-// import AuthorImag2 from '../assets/a2.jpg'
-// import AuthorImag3 from '../assets/a3.jpg'
-// import AuthorImag4 from '../assets/a4.jpg'
 
-// export const DummyAuthor =[
-//     {
-//         id: 1,
-//         Image: AuthorImage1,
-//         name: 'Lana White',
-//         posts: 2,        
-//     },
-//     {
-//         id: 2,
-//         Image: AuthorImag2,
-//         name: 'Evarhim Alli',
-//         posts: 1,        
-//     },
-//     {
-//         id: 3,
-//         Image: AuthorImag3,
-//         name: 'Alyexa Nuva',
-//         posts: 6,        
-//     },
-//     {
-//         id: 4,
-//         Image: AuthorImag4,
-//         name: 'Imran Hasmi',
-//         posts: 4,        
-//     },
-// ]
+
+export const DummyAuthor =[
+    {
+        id: 1,
+        Image: AuthorImage1,
+        name: 'Lana White',
+        posts: 2,        
+    },
+    {
+        id: 2,
+        Image: AuthorImag2,
+        name: 'Evarhim Alli',
+        posts: 1,        
+    },
+    {
+        id: 3,
+        Image: AuthorImag3,
+        name: 'Alyexa Nuva',
+        posts: 6,        
+    },
+    {
+        id: 4,
+        Image: AuthorImag4,
+        name: 'Imran Hasmi',
+        posts: 4,        
+    },
+]
