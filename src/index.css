@@ -63,6 +63,10 @@ html{
 
   a{
     text-decoration: none;
+    /* color: var(--color-gray-700); */
+    color: var(--color-white);
+  }
+  small{
     color: var(--color-gray-700);
   }
 
@@ -128,8 +132,10 @@ html{
   }
 
   .btn-category{
-    background: var(--color-bg);
-    color: var(--color-primary) ;
+    /* background: var(--color-bg); */
+    background: var(--color-primary);
+    /* color: var(--color-primary) ; */
+    color: var(--color-bg) ;
     font-size: .75rem;
     font-weight:400;
   }
@@ -646,6 +652,10 @@ input, select, textarea {
     }
     .dashboard-post-thumbnail{
       width: 5rem;
+    }
+    a{
+      text-decoration: none;
+      color: var(--color-gray-700);
     }
   }
     
