@@ -7,13 +7,7 @@ const Posts = () => {
     const [posts, setPosts] = useState(DummyPosts)
   return (
     <section className='posts'>
-      {/* <div className='head-posts'>
-        <div className='container-head-post-container'>
-
-        </div>
-      </div> */}
-
-
+   
 { posts.length > 0 ?
       <div className='container posts-container'>
       {

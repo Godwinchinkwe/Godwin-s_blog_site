@@ -1,6 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import { UserContext } from '../Context/userContext';
+import {useNavigate} from 'react-router-dom'
 
 const EditPost = () => {
 
@@ -8,6 +10,18 @@ const EditPost = () => {
   const[category, setCategory] = useState("Uncategorised")
   const[thumbnail, setThumbnail] = useState("")
   const[description, setDescription] = useState("")
+
+  const navigate = useNavigate()
+
+  const {currentUser } = useContext(UserContext)
+  const token = currentUser?.token;
+
+  //redirect to login page for any user who isn't logged in
+   useEffect(()=>{
+    if(!token){
+      navigate('/login')
+    }
+   }, [])
 
   const modules = {
     toolbar:[

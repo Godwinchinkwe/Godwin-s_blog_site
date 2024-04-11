@@ -1,10 +1,13 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { FaBars } from "react-icons/fa";
 import { AiOutlineClose } from "react-icons/ai";
 
+import { UserContext } from '../Context/userContext';
+
 const Header = () => {
-  const [IsNavShowing, setIsNavShowing] = useState(window.innerWidth > 800 ? true : false );
+  const [IsNavShowing, setIsNavShowing] = useState(window.innerWidth > 800 ? true : false ); 
+  const {currentUser} = useContext(UserContext)
 
   const closeNavHandler = () =>{
     if(window.innerWidth < 800) {
@@ -21,11 +24,16 @@ const Header = () => {
                 <h3>Gee B<span>lo</span>g</h3>
             </Link>
 
-           {IsNavShowing && <ul className='nav-menu'>
+           {currentUser?.id && IsNavShowing && <ul className='nav-menu'>
                 <li > <Link  to={"/profile"} onClick={closeNavHandler} > Gee Win </Link> </li>
                 <li>< Link to={"/Create"} onClick={closeNavHandler}> Create Posts </Link> </li>
                 <li>< Link to={"/author"} onClick={closeNavHandler}> Authors </Link> </li>
                 <li>< Link to={"/logout"} onClick={closeNavHandler}> Logout </Link> </li>
+            </ul>}
+
+            {!currentUser?.id && IsNavShowing && <ul className='nav-menu'>
+                <li>< Link to={"/author"} onClick={closeNavHandler}> Authors </Link> </li>
+                <li>< Link to={"/login"} onClick={closeNavHandler}> Login </Link> </li>
             </ul>}
 
             <button className='nav-toggle-button' onClick={()=>setIsNavShowing(!IsNavShowing)}>
