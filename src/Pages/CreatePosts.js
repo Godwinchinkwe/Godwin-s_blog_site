@@ -41,6 +41,16 @@ const CreatePosts = () => {
 
   const POST_CATEGORIES =[ "Agriculture", "Business","Education", "Discovery","Entertainment","Art", "Investment", "Fashion", "Weather", "Sport", "Science", "Movie", "Music", "Uncategorised"]
 
+  const CreatePost = async (e) => {
+    e.preventDefault();
+
+    const postData = new FormData();
+    postData.set('title', title)
+    postData.set('category', category)
+    postData.set('description', description)
+    postData.set('thumbnail', thumbnail)
+  }
+
   return (
     <section className='create-post'>
       <div className='container'>
@@ -48,7 +58,7 @@ const CreatePosts = () => {
         <p className='form-error-message'>
           This is an error message
         </p>
-        <form className='form create-post-form'>
+        <form className='form create-post-form' onSubmit={CreatePost}>
           <input type="text" placeholder='Title' value={title} onChange={e => setTitle(e.target.value)} autoFocus />
           <select name='category' value={category} onChange={e => setCategory(e.target.value)}>
             {

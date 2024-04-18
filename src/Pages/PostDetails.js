@@ -1,50 +1,68 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-// import AuthorPost from "./AuthorPost"
+import React, {useEffect, useState, useContext} from 'react'
+import { Link, useParams } from 'react-router-dom'
 import postDtailImage from "../assets/1.jpg"
 import PostAuthor from '../Components/PostAuthor'
+import Loader from '../Components/Loader'
+import DeletePost from './DeletePost'
+import { UserContext } from '../Context/userContext'
+import axios  from 'axios'
+
 
 const PostDetails = () => {
+
+  const {id} = useParams()
+  const [post, setPost] = useState(null)
+  // const [creatorID, setCreatorID] = useState(null)
+  const [error, setError] = useState(null)
+  const [isLoading, setIsLoading] = useState(false)
+
+  const {currentUser} = useContext(UserContext)
+
+  useEffect(()=>{
+    const getPost = async () =>{
+      setIsLoading(true);
+      try {
+        const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/posts/${id}`)
+        setPost(response.data)
+        // setCreatorID(response.data.creator)
+      } catch (error) {
+        setError(error)
+      }
+      setIsLoading(false)
+    }
+    getPost();
+  },[])
+
+  if(isLoading){
+    return <Loader/>
+  }
+
   return (
     <section>
-      <div className='container PostDtail-container'>
+      {error && <p className='error'>{error}</p>}
+      {post && <div className='container PostDtail-container'>
         <div className='postdtail-top'>
-          <PostAuthor />
-          {/* <div className='postdtail-buttons'> */}
-            <div className='postdtail-buttons'>
-              <Link to={`/posts/werwer/edit`} className='btn btn-sm btn-primary'>
+          <PostAuthor authorId={post.creator} createdAt={post.createdAt}/>
+           {currentUser?.id == post?.creator && <div className='postdtail-buttons'>
+              <Link to={`/posts${post?._id}edit`} className='btn btn-sm btn-primary'>
                 Edit
               </Link>
-              <Link to={`/posts/werwer/delete`} className='btn btn-sm btn-danger'>
-                Delete
-              </Link>
-            </div>
-          {/* </div> */}
+              <DeletePost post={id} />
+            </div>}
         </div>
-        <h1>Lorem ipsum, dolor sit amet consectrtur adpsicing elit</h1>
+        <h1> {post.title} </h1>
         <div className='postdtail-image'>
-          <img src={postDtailImage} alt=""/>
+          <img src={`${process.env.REACT_APP_ASSETS_URL}/uploads/${post.thumbnail}`} alt=""/>
         </div>
         <div className='postdtail-para'>
-        <p>
-        Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries
-        </p>
-        <p>
-        Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries
-        </p>
-        <p>
-        Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries
-        Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries
-        </p>
-        <p>
-        Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries
-        </p>
-
+          <p dangerouslySetInnerHTML={{_html: post.description}}></p>
+      
         </div>
        
-      </div> 
+      </div> }
     </section>
   )
 }
 
 export default PostDetails
+ 

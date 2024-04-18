@@ -1,39 +1,48 @@
 import React from 'react'
-import { useState } from 'react'
-import {DummyAuthor } from '../Data/Data'
+import { useState, useEffect } from 'react'
 import PostItem from '../Components/PostItem'
+import Loader from '../Components/Loader'
+import axios  from 'axios'
+import { useParams } from 'react-router-dom'
 
 
-// import { Link } from 'react-router-dom'
-// import AuthorImage from "../assets/a1.jpg"
 
 const AuthorPost = () => {
-  const [posts, setPosts] = useState(DummyAuthor)
-  return (
-    // <Link to={`/posts/user/:id`} className='post-author'>
-    //   <div className='post-author-image'>
-    //     <img src={AuthorImage} alt=""/> 
-    //   </div>
+  const [posts, setPosts] = useState([])
+  const [isLoading, setIsLoading] = useState(false)
+
+  const {id} = useParams
+
+
+  useEffect(()=>{
+    const fetchPosts = async () =>{
+      setIsLoading(true);
+      try {
+        const response = await axios.get(`${process.env.REACT_BASE_URL}/posts/users/${id}`)
+        setPosts(response?.data)
+      } catch (err) {
+        console.log(err)
+      }
+      setIsLoading(false)
+    }
+    fetchPosts();
+  },[id])
+
+  if(isLoading){
+    return <Loader/>
+  }
+return (
+  <section className='posts'>
  
-    // <div className='post-author-info'>
-    //   <h5>Dev Lucia</h5>
-    //   <small>Just Now</small>
-    // </div>
-    // </Link>
-
-
-    <section className='authorposts'>
-      <h1 className='page-title'>Author Posts</h1>
-
 { posts.length > 0 ?
-      <div className='authorPosts-container'>
-      {
-            posts.map(({id, Image, authorId, category, title, des})=> <PostItem key={id} Image={Image} category={category} authorId={authorId} title={title} des={des} />)
-        }
-      </div> : <h2 className='error-center'> No post founds </h2> }
-      
-    </section>
-  )
+    <div className='container posts-container'>
+    {
+          posts.map(({_id:id, thumbnail, authorId, category, title, createdAt, creator, des})=> <PostItem key={id} thumbnail={thumbnail} category={category} authorId={creator} title={title} des={des} createdAt={createdAt} />)
+      }
+    </div> : <h2 className='center'> No Post Founds </h2> }
+    
+  </section>
+)
 }
 
 export default AuthorPost

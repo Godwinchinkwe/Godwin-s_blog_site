@@ -548,6 +548,24 @@ input, select, textarea {
 }
 
   /* ........ dashboard page end ........  */
+  /* ........ LOADING page sTART ........  */
+  .loading{
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    display: grid;
+    place-items: center;
+    background: var(--color-bg);
+  }
+
+  .loader_image{
+    width: 4.5rem;
+    aspect-ratio: 1/1;
+
+  }
+  /* ........ LOADING page sTART ........  */
 
   /* ........ MEDIA QUERRY (SMALL DEVICE) START........  */
   @media screen and (max-width: 800px){
