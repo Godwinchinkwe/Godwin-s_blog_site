@@ -1,6 +1,6 @@
 import React, {useEffect, useState, useContext} from 'react'
 import { Link, useParams } from 'react-router-dom'
-import postDtailImage from "../assets/1.jpg"
+// import postDtailImage from "../assets/1.jpg"
 import PostAuthor from '../Components/PostAuthor'
 import Loader from '../Components/Loader'
 import DeletePost from './DeletePost'
@@ -47,7 +47,7 @@ const PostDetails = () => {
               <Link to={`/posts${post?._id}edit`} className='btn btn-sm btn-primary'>
                 Edit
               </Link>
-              <DeletePost post={id} />
+              <DeletePost postId={id} />
             </div>}
         </div>
         <h1> {post.title} </h1>
