@@ -35,8 +35,11 @@ const DeletePost = ({postId: id}) => {
         }
          setIsLoading(false)
       } catch (error) {
-        
+        console.log("Couldn't delete post.")
       }
+   }
+   if(isLoading){
+    return <Loader />
    }
    
   return (

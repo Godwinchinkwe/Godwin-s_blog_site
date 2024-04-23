@@ -22,10 +22,11 @@ const Header = () => {
         <div className='container nav-container'>
             <Link className='nav-logo' to={"/"} onClick={closeNavHandler}>
                 <h3>Gee B<span>lo</span>g</h3>
+                {/* <img src={Logo} alt="Navbar Logo" /> */}
             </Link>
 
            {currentUser?.id && IsNavShowing && <ul className='nav-menu'>
-                <li > <Link  to={"/profile"} onClick={closeNavHandler} > Gee Win </Link> </li>
+                <li > <Link  to={`/profile/${currentUser.id}cu`} onClick={closeNavHandler} > Gee Win </Link> </li>
                 <li>< Link to={"/Create"} onClick={closeNavHandler}> Create Posts </Link> </li>
                 <li>< Link to={"/author"} onClick={closeNavHandler}> Authors </Link> </li>
                 <li>< Link to={"/logout"} onClick={closeNavHandler}> Logout </Link> </li>
