@@ -14,8 +14,8 @@ const UserProfile = () => {
   const [currentPassword, setCurrentPassword] = useState("")
   const [newPassword, setNewPassword] = useState("")
   const [confirmNewPassword, setConfirmNewPassword] = useState("")
-
   const [isAvatarTouched, setIsavatarTouched] = useState(false)
+  const [error, setError] = useState("")
 
   const navigate = useNavigate();
 
@@ -27,6 +27,8 @@ const UserProfile = () => {
       navigate('/login')
     }
   }, [])
+
+
 
   useEffect(()=>{
     const getUser = async () =>{
@@ -53,6 +55,28 @@ const UserProfile = () => {
     }
  }
 
+ const updateUserDetail = async (e) => {
+  e.preventDefault();
+  
+  try {
+    const userData = new FormData();
+    userData.set('name', name);
+    userData.set('email', email);
+    userData.set('currentPassword', currentPassword)
+    userData.set('newPassword', newPassword)
+    userData.set('confirmNewPassword', confirmNewPassword)
+  
+    const response = await axios.patch(`${process.env.REACT_APP_BASE_URL}/users/edit-user`, userData, {withCredentials: true, header: {Authorization:`Bearer ${token}`}})
+    if(response.status == 200) {
+      //log user out 
+      navigate('/logout')
+    }
+  } catch (error) {
+    setError(error.response.data.message);
+  }
+
+ }
+
   return (
     <section className='profile'>
       <div className='container profile-container'>
@@ -74,8 +98,8 @@ onChange={e => setAvatar(e.tager.files[0])}  accept='png, jpg, jpeg'/>
           <h1>{currentUser.name}</h1>
 
           {/* form to update user details  */}
-          <form className='form profile-form'>
-            <p className='form-error-message'>This is a error message</p>
+          <form className='form profile-form' onSubmit={updateUserDetail}>
+            {error && <p className='form-error-message'>{error}</p>}
             <input type='text' placeholder='Full Name' value={name}  onChange={e => setName(e.target.value)}/>
             <input type='email' placeholder='Email' value={email}  onChange={e => setEmail(e.target.value)}/>
             <input type='password' placeholder='Current Password' value={currentPassword}  onChange={e => setCurrentPassword(e.target.value)}/>
